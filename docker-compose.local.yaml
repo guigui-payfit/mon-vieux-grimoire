@@ -7,6 +7,23 @@ networks:
     name: mon-vieux-grimoire-network
 
 services:
+  mon-vieux-grimoire-api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile.local
+    command: ["npm", "start"]
+    container_name: mon-vieux-grimoire-api
+    image: mon-vieux-grimoire-api
+    networks:
+      - mon-vieux-grimoire-network
+    ports:
+      - ${API_PORT}:${API_PORT}
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: api/src
+        target: /mon-vieux-grimoire/api/src
+
   mon-vieux-grimoire-client:
     build:
       context: .

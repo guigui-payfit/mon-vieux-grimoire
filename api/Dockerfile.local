@@ -1,0 +1,9 @@
+FROM node:20.11.1-alpine3.18
+WORKDIR /mon-vieux-grimoire/api
+
+COPY api/package*.json .
+RUN npm install
+
+COPY api/.env .
+
+EXPOSE 4000

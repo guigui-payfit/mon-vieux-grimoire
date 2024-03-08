@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "docker compose -f docker-compose.local.yaml up -d",
-    "stop": "docker compose -f docker-compose.local.yaml down"
+    "start": "docker compose -f docker-compose.local.yaml --env-file api/.env up -d",
+    "stop": "docker compose -f docker-compose.local.yaml --env-file api/.env down"
   }
 }

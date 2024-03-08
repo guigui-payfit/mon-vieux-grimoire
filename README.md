@@ -4,6 +4,8 @@ This is the seventh project (P7) of the OpenClassrooms web developer training.
 
 ## How to start the app
 
+Copy the content from the file `api/.env.example` to a new file `api/.env`.
+
 Open [Docker Desktop](https://www.docker.com/products/docker-desktop) on your machine.
 
 Then run the following command at the root of the "mon-vieux-grimoire" folder:
