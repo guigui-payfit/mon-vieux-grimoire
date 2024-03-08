@@ -1,0 +1,25 @@
+# This file is used to start locally all the mon-vieux-grimoire stack.
+
+version: "3.9"
+
+networks:
+  mon-vieux-grimoire-network:
+    name: mon-vieux-grimoire-network
+
+services:
+  mon-vieux-grimoire-client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile.local
+    command: ["npm", "start"]
+    container_name: mon-vieux-grimoire-client
+    image: mon-vieux-grimoire-client
+    networks:
+      - mon-vieux-grimoire-network
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: client/src
+        target: /mon-vieux-grimoire/client/src

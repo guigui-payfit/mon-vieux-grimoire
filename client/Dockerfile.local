@@ -1,0 +1,10 @@
+FROM node:20.11.1-alpine3.18
+WORKDIR /mon-vieux-grimoire/client
+
+COPY client/package*.json .
+RUN npm install
+
+COPY client/babel-plugin-macros.config.js client/.eslintrc.json ./
+COPY client/public public
+
+EXPOSE 3000
