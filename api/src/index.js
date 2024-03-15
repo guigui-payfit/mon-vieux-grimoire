@@ -1,4 +1,3 @@
-const dotenv = require("dotenv");
 const http = require("http");
 
 const app = require("./app");
@@ -7,8 +6,6 @@ const {
   getServerAddressIndication,
 } = require("./utils/get-server-address-indication");
 const { normalizePort } = require("./utils/normalize-port");
-
-dotenv.config();
 
 const apiPort = normalizePort(process.env["API_PORT"]);
 app.set("port", apiPort);

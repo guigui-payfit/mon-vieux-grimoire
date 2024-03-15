@@ -1,7 +1,21 @@
+const dotenv = require("dotenv");
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.json());
+
+dotenv.config();
+
+// Initialization of the connection to database
+mongoose
+  .connect(process.env["DATABASE_URI"], {
+    dbName: process.env["DATABASE_NAME"],
+  })
+  .then(() => console.log("Connected to the database with success"))
+  .catch((error) => {
+    console.log(`Connection to the database failed: ${error}`);
+  });
 
 // Enable CORS (Cross Origin Resource Sharing) so that the client can call directly the API
 app.use((_, res, next) => {

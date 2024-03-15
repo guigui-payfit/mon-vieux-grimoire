@@ -40,3 +40,29 @@ services:
       - type: bind
         source: client/src
         target: /mon-vieux-grimoire/client/src
+
+  mon-vieux-grimoire-database:
+    container_name: mon-vieux-grimoire-database
+    # Required environment variables: https://hub.docker.com/_/mongo
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_ROOT_USER_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_ROOT_USERNAME}
+    image: mongo:7.0.6
+    networks:
+      - mon-vieux-grimoire-network
+    ports:
+      - ${DATABASE_PORT}:27017
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: mon-vieux-grimoire-database
+        target: /data/db
+      - type: volume
+        source: mon-vieux-grimoire-database-configuration
+        target: /data/configdb
+
+volumes:
+  mon-vieux-grimoire-database:
+    name: mon-vieux-grimoire-database
+  mon-vieux-grimoire-database-configuration:
+    name: mon-vieux-grimoire-database-configuration

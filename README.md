@@ -1,4 +1,4 @@
-# Mon Vieux Grimoire website
+# "Mon Vieux Grimoire" website
 
 This is the seventh project (P7) of the OpenClassrooms web developer training.
 
@@ -14,7 +14,8 @@ Then run the following command at the root of the "mon-vieux-grimoire" folder:
 npm start
 ```
 
-Once everything is built (you can follow the progression in the Docker container logs), you can see Mon Vieux Grimoire website on your web browser here: http://localhost:3000.
+Once everything is built (you can follow the progression in the Docker container logs), you can see "Mon Vieux Grimoire" website on your web browser here: http://localhost:3000.
+You can also explore the database with a Mongo GUI (Graphic User Interface) like "MongoDB Compass", by setting the following connection string: `mongodb://root:password@localhost:27017/`.
 
 Finally, you can close all the "mon-vieux-grimoire" stack by running the following command at the root of the "mon-vieux-grimoire" folder:
 
