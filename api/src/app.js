@@ -42,6 +42,15 @@ app.get("/api/books", async (_, res, __) => {
   }
 });
 
+app.get("/api/books/:id", async (req, res, _) => {
+  try {
+    const book = await Book.findOne({ _id: req.params.id });
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+});
+
 app.post("/api/books", async (req, res, _) => {
   try {
     delete req.body._id;
