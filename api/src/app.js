@@ -2,6 +2,8 @@ const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
 
+const Book = require("./models/book");
+
 const app = express();
 app.use(express.json());
 
@@ -31,51 +33,24 @@ app.use((_, res, next) => {
   next();
 });
 
-app.get("/api/books", (_, res, __) => {
-  // Mocks to remove when we will return books from a database
-  const books = [
-    {
-      _id: "1a1a1a1a1a1a1a1a1a1a1a1a",
-      userId: "1a1a1a1a1a1a1a1a1a1a1a1a",
-      title: "Livre n°1",
-      author: "Auteur n°1",
-      imageUrl: "https://pictures.abebooks.com/inventory/16277909918.jpg",
-      year: 2024,
-      genre: "Policier",
-      ratings: [
-        {
-          userId: "2b2b2b2b2b2b2b2b2b2b2b2b",
-          grade: 5,
-        },
-      ],
-      averageRating: 5,
-    },
-    {
-      _id: "2b2b2b2b2b2b2b2b2b2b2b2b",
-      userId: "2b2b2b2b2b2b2b2b2b2b2b2b",
-      title: "Livre n°2",
-      author: "Auteur n°2",
-      imageUrl:
-        "https://i.pinimg.com/236x/f5/54/65/f55465b87aa48001e6514ef64ace9b26.jpg",
-      year: 2023,
-      genre: "Science-fiction",
-      ratings: [
-        {
-          userId: "1a1a1a1a1a1a1a1a1a1a1a1a",
-          grade: 4,
-        },
-      ],
-      averageRating: 4,
-    },
-  ];
-  res.status(200).json(books);
+app.get("/api/books", async (_, res, __) => {
+  try {
+    const books = await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
-app.post("/api/books", (req, res, _) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: "Object created!",
-  });
+app.post("/api/books", async (req, res, _) => {
+  try {
+    delete req.body._id;
+    const bookToCreate = { ...req.body, averageRating: 0, ratings: [] };
+    await new Book(bookToCreate).save();
+    res.status(201).json({ message: "Objet enregistré !" });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
 module.exports = app;
