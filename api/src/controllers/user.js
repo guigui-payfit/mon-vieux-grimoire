@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const JWT_VALIDITY_DURATION = "24h";
 const SALT_ROUNDS_FOR_PASSWORD_HASHING = 10;
 
 exports.login = async (req, res, _) => {
@@ -30,7 +32,12 @@ exports.login = async (req, res, _) => {
   if (match) {
     return res.status(200).json({
       userId: user._id,
-      token: "TOKEN",
+      /* This token is added by the front-end in the "Authorization" header of HTTP requests
+       * for which the API requires the user authentification.
+       */
+      token: jwt.sign({ userId: user._id }, process.env["JWT_ENCRYPTION_KEY"], {
+        expiresIn: JWT_VALIDITY_DURATION,
+      }),
     });
   }
   return res
