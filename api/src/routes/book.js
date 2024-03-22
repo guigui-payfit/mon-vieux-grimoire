@@ -7,13 +7,14 @@ const {
   getBookById,
   updateBook,
 } = require("../controllers/book");
+const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.delete("/:id", deleteBookById);
+router.delete("/:id", auth, deleteBookById);
 router.get("/", getAllBooks);
 router.get("/:id", getBookById);
-router.post("/", createBook);
-router.put("/:id", updateBook);
+router.post("/", auth, createBook);
+router.put("/:id", auth, updateBook);
 
 module.exports = router;
