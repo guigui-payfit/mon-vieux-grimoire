@@ -28,11 +28,19 @@ exports.createBook = async (req, res, _) => {
 
 exports.deleteBookById = async (req, res, _) => {
   try {
-    await Book.deleteOne({ _id: req.params.id });
+    const existingBookToDelete = await Book.findOne({ _id: req.params.id });
+    if (existingBookToDelete.userId !== req.auth.userId) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    const fileName = existingBookToDelete.imageUrl.split("/images/")[1];
+    fs.unlink(path.join(__dirname, `../images/${fileName}`), async () => {
+      await Book.deleteOne({ _id: req.params.id });
+    });
 
     res.status(200).json({ message: "Livre supprimé !" });
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(500).json({ error });
   }
 };
 
