@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
+const fs = require("fs");
 const mongoose = require("mongoose");
 const path = require("path");
 
@@ -35,8 +36,16 @@ app.use((_, res, next) => {
   next();
 });
 
-// Bind the "/images" route with the folder storing images on the API server
-app.use("/images", express.static(path.join(__dirname, "images")));
+/* Create the "/images" folder (storing images uploaded by users)
+ * and bind the "/images" route with this folder
+ */
+const imagesFolderPath = path.join(__dirname, "images");
+fs.access(imagesFolderPath, (error) => {
+  if (error) {
+    fs.mkdirSync(imagesFolderPath);
+  }
+});
+app.use("/images", express.static(imagesFolderPath));
 
 app.use("/api/auth", userRoutes);
 app.use("/api/books", bookRoutes);
