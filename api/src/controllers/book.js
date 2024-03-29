@@ -13,7 +13,7 @@ exports.createBook = async (req, res, _) => {
       ...bookObject,
       averageRating: 0,
       imageUrl: `${req.protocol}://${req.get("host")}/images/${
-        req.file.filename
+        req.fileToBeStoredName
       }`,
       ratings: [],
       userId: req.auth.userId,
@@ -72,7 +72,7 @@ exports.updateBook = async (req, res, _) => {
       ? {
           ...JSON.parse(req.body.book),
           imageUrl: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
+            req.fileToBeStoredName
           }`,
         }
       : req.body;
