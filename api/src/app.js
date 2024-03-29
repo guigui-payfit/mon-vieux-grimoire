@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const bookRoutes = require("./routes/book");
 const userRoutes = require("./routes/user");
@@ -33,6 +34,9 @@ app.use((_, res, next) => {
   );
   next();
 });
+
+// Bind the "/images" route with the folder storing images on the API server
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/auth", userRoutes);
 app.use("/api/books", bookRoutes);

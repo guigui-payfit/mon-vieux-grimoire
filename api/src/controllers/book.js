@@ -2,8 +2,18 @@ const Book = require("../models/book");
 
 exports.createBook = async (req, res, _) => {
   try {
-    delete req.body._id;
-    const bookToCreate = { ...req.body, averageRating: 0, ratings: [] };
+    const bookObject = JSON.parse(req.body.book);
+    delete bookObject._id;
+    delete bookObject.userId;
+    const bookToCreate = {
+      ...bookObject,
+      averageRating: 0,
+      imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        req.file.filename
+      }`,
+      ratings: [],
+      userId: req.auth.userId,
+    };
     await new Book(bookToCreate).save();
     res.status(201).json({ message: "Nouveau livre enregistré !" });
   } catch (error) {
