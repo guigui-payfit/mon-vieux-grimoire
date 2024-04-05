@@ -1,6 +1,7 @@
 const express = require("express");
 
 const {
+  addRating,
   createBook,
   deleteBookById,
   getAllBooks,
@@ -17,6 +18,7 @@ router.delete("/:id", auth, deleteBookById);
 router.get("/", getAllBooks);
 router.get("/:id", getBookById);
 router.post("/", auth, multer, compressFile, createBook);
+router.post("/:id/rating", auth, addRating);
 router.put("/:id", auth, multer, compressFile, updateBook);
 
 module.exports = router;
