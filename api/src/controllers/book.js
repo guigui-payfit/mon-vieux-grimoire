@@ -95,6 +95,18 @@ exports.getAllBooks = async (_, res, __) => {
   }
 };
 
+exports.getBestRatedBooks = async (_, res, __) => {
+  try {
+    const bestRatedBooks = await Book.find()
+      .sort({ averageRating: -1 })
+      .limit(3);
+
+    res.status(200).json(bestRatedBooks);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 exports.getBookById = async (req, res, _) => {
   try {
     const book = await Book.findOne({ _id: req.params.id });

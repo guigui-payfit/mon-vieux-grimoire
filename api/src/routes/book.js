@@ -5,6 +5,7 @@ const {
   createBook,
   deleteBookById,
   getAllBooks,
+  getBestRatedBooks,
   getBookById,
   updateBook,
 } = require("../controllers/book");
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.delete("/:id", auth, deleteBookById);
 router.get("/", getAllBooks);
+router.get("/bestrating", getBestRatedBooks);
 router.get("/:id", getBookById);
 router.post("/", auth, multer, compressFile, createBook);
 router.post("/:id/rating", auth, addRating);
