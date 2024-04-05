@@ -54,11 +54,9 @@ exports.createBook = async (req, res, _) => {
 
     const bookToCreate = {
       ...bookObject,
-      averageRating: 0,
       imageUrl: `${req.protocol}://${req.get("host")}/images/${
         req.fileToBeStoredName
       }`,
-      ratings: [],
       userId: req.auth.userId,
     };
     await new Book(bookToCreate).save();

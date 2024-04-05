@@ -28,3 +28,8 @@ npm stop
 - [API technical specifications](https://course.oc-static.com/projects/D%C3%A9veloppeur+Web/DW_P7+Back-end/DW+P7+Back-end+-+Specifications+API.pdf)
 - [Website mock-ups on Figma](https://www.figma.com/file/Snidyc45xi6qchoOPabMA9/Maquette-Mon-Vieux-Grimoir?type=design&node-id=0-1&mode=design&t=fCp69wnbZfNJGsOK-0)
 - [Functional specifications](https://course.oc-static.com/projects/D%C3%A9veloppeur+Web/DW_P7+Back-end/DW+P7+Back-end+-+Specifications+fonctionnelles.pdf)
+
+## Notes
+
+The API technical specification document mentions that a created book must have an empty array as "ratings" and an average rating equal to 0. This is inconsistent with the possibility to rate the book in the book creation form.
+As a consequence, if a rate is given at the book creation, then it will be added to the book ratings and the average rating will be equal to the given rate.
