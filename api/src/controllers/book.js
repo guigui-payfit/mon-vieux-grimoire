@@ -40,7 +40,7 @@ exports.addRating = async (req, res, _) => {
 
     await bookToBeRated.save();
 
-    res.status(201).json({ book: bookToBeRated });
+    res.status(201).json(bookToBeRated);
   } catch (error) {
     res.status(500).json({ error });
   }
